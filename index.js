@@ -4,12 +4,10 @@ let rightText = document.getElementsByName("textarea")[1];
 let leftBtn = document.getElementById("btn1")
 let rightBtn = document.getElementById("btn2")
 
-let numCount = 20000;
+let numCount = 2000;
 let min = 1;
 let max = 1000;
-const unsortArray = arrayMaker(numCount, min, max);
-let x = unsortArray;
-let hasArray = false;
+let unsortArray = arrayMaker(numCount, min, max);
 let sortedArray;
 
 let oldTime;
@@ -33,44 +31,46 @@ function arrayMaker(numCount, min, max){
 
 // bubble sort function
 function bubbleSort(arrayName) {
-    let x = arrayName;
-    for(let i = 0; i < x.length; i++){
-        for(let j = 0; j < x.length - 1; j++){
-            if(x[j] > x[j+1]){
-                let temp = x[j];
-                x[j] = x[j+1];
-                x[j+1] = temp;
+    let tempArray = arrayName.slice(0);
+   
+    for(let i = 0; i < tempArray.length; i++){
+        for(let j = 0; j < tempArray.length - 1; j++){
+            if(tempArray[j] > tempArray[j+1]){
+                let temp = tempArray[j];
+                tempArray[j] = tempArray[j+1];
+                tempArray[j+1] = temp;
             }
         }
     }
-    return x;
+    return tempArray;
 }
 
 
 
 //assign Unsorted array to left-textarea when clicking the button
-leftBtn.onclick = function(){leftText.value = unsortArray; hasArray = true;};
-console.log(unsortArray);
-console.log(hasArray);
+leftBtn.onclick = function(){leftText.value = unsortArray;};
 
 
-//creating sortedArray
 
 
-//assign Sorted array to right-textarea when clicking the button
+
+
+
 rightBtn.onclick = function(){
 
+    //Creating oldTime
     oldTime = new Date().getTime();
     console.log(oldTime);
 
-    sortedArray = bubbleSort(x);
-    console.log(unsortArray);
+    //assign Sorted array to right-textarea when clicking the button
+    sortedArray = bubbleSort(unsortArray);
     rightText.value = sortedArray;
 
-
+    //Creating newTime and count the time
     newTime = new Date().getTime();
     console.log(newTime);
     totalTime = newTime - oldTime;
     console.log("Total spent " + totalTime + " ms");
     
+   console.log(unsortArray);
 };
